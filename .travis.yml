@@ -1,0 +1,6 @@
+language: csharp
+mono: none
+dotnet: 2.1.503
+script:
+ - cd src
+ - dotnet build Klemm.One.Server -c Release
