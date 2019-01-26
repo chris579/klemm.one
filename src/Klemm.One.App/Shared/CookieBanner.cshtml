@@ -1,7 +1,8 @@
-﻿@using System.Diagnostics
-@using Klemm.One.App.Helper.Interops
+﻿@using Klemm.One.App.Services
+@inject StorageService StorageService
+@implements IDisposable
 
-<div class='storage-notification-container @(IsFaded ? "container-hide" : "")' hidden="@IsHidden">
+<div class='storage-notification-container @(IsFaded ? "container-hide" : "")' hidden="@StorageService.IsEnabled">
     <div class="storage-notification-layer">
         <div>
             <span class="storage-message">
@@ -20,24 +21,34 @@
 
 @functions {
     public bool IsFaded { get; private set; }
-    public bool IsHidden { get; private set; } = true;
-
-    const string StorageAcceptKey = "storageAccepted";
 
     protected override async Task OnInitAsync()
     {
-        var storageContent = await LocalStorage.GetItem(Properties.Resources.StorageKey + StorageAcceptKey);
-        IsHidden = !string.IsNullOrEmpty(storageContent);
+        await StorageService.Init();
+
+        StorageService.StateChanged += StorageServiceOnStateChanged;
     }
 
-    void AcceptStorage()
+    private void StorageServiceOnStateChanged(object sender, EventArgs args)
     {
-        LocalStorage.SetItem(Properties.Resources.StorageKey + StorageAcceptKey, true.ToString());
+        IsFaded = false;
+        StateHasChanged();
+    }
+
+    async Task AcceptStorage()
+    {
+        await StorageService.AcceptStorage();
         IsFaded = true;
     }
 
-    void DenyStorage()
+    async Task DenyStorage()
     {
+        await StorageService.DenyStorage();
         IsFaded = true;
+    }
+
+    public void Dispose()
+    {
+        StorageService.StateChanged -= StorageServiceOnStateChanged;
     }
 }

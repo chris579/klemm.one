@@ -1,4 +1,7 @@
 ﻿@page "/privacyStatement"
+@using Klemm.One.App.Services
+@implements IDisposable
+@inject StorageService StorageService
 
 <h1>Privacy statement</h1>
 
@@ -18,13 +21,24 @@
   </pre>
 
     <b>Status:</b><br />
-    <span *ngIf="storageService.isLocalStorageAccepted(); else localStorageDenied">
-        Local storage is currently enabled<br />
-        <button mat-raised-button color="primary" class="reset-storage-button" (click)="storageService.setLocalStorageAccepted(false)">Delete storage</button>
-    </span>
-    <ng-template #localStorageDenied>
-        Local storage is currently disabled
-    </ng-template>
+    @if (StorageService.IsEnabled)
+    {
+         <span>
+             Local storage is currently <b>enabled</b><br />
+             <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored reset-storage-button" onclick="@DeleteStorage">
+                 <i class="material-icons">
+                     delete
+                 </i>
+                 Delete storage
+             </button>
+         </span>
+    }
+    else
+    {
+        <span>
+            Local storage is currently <b>disabled</b>
+        </span>
+    }
 </div>
 
 <!-- Server log files -->
@@ -48,3 +62,28 @@
     illegal use.
   </pre>
 </div>
+
+@functions {
+
+    protected override async Task OnInitAsync()
+    {
+        await StorageService.Init();
+
+        StorageService.StateChanged += StorageServiceOnStateChanged;
+    }
+
+    private void StorageServiceOnStateChanged(object sender, EventArgs args)
+    {
+        StateHasChanged();
+    }
+
+    Task DeleteStorage()
+    {
+        return StorageService.DenyStorage();
+    }
+
+    public void Dispose()
+    {
+        StorageService.StateChanged -= StorageServiceOnStateChanged;
+    }
+}

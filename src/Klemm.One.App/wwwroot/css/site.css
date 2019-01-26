@@ -16,6 +16,9 @@ app {
     flex-direction: column;
 }
 
+main {
+    overflow: hidden !important;
+}
 
 li {
     font-size: 14pt;
@@ -64,3 +67,7 @@ li {
     .statement-content > ul {
         margin: 0;
     }
+
+.reset-storage-button {
+    margin-top: 0.5em;
+}
