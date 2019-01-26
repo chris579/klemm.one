@@ -1,0 +1,66 @@
+﻿@import url('site/CookieBanner.css');
+
+:root {
+    --primary: rgb(63,81,181);
+    --secondary: rgb(33, 150, 243);
+}
+
+html, body {
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
+    font-size: 100%;
+}
+
+app {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+
+li {
+    font-size: 14pt;
+}
+
+.page-content {
+    margin-top: 40px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+@media only screen and (max-width: 1024px) {
+    .page-content {
+        margin-top: 16px;
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+}
+
+.introduction-text {
+    font-size: 1.1rem;
+}
+
+.pgp-key-info {
+    overflow-wrap: break-word;
+}
+
+.skills-container > .mdl-card {
+    display: inline-block;
+    margin-right: 1rem;
+    margin-top: 1rem;
+}
+
+.statement-content {
+    font-size: 14pt;
+    font-family: 'Roboto', sans-serif;
+}
+
+    .statement-content > pre {
+        font-size: 14pt;
+        font-family: 'Roboto', sans-serif;
+        word-wrap: break-word;
+        margin: 0.5rem 0 0 0;
+    }
+
+    .statement-content > ul {
+        margin: 0;
+    }

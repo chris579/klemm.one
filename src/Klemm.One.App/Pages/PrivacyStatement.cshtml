@@ -1,0 +1,50 @@
+﻿@page "/privacyStatement"
+
+<h1>Privacy statement</h1>
+
+<!-- Storage -->
+<h2>Storage</h2>
+<div class="statement-content">
+    <pre>
+    According to EU law this website is asking you whether to store data in your browser.
+    In general stored data consists out of user settings and unique identifiers to recognize you.
+    This data cannot be used to track you back furthermore it is used to anonymize you. Unique identifiers
+    set by this website are unique and are not shared by other websites.
+    If you deny the use of local storage this items are stored in your session cache that gets wiped
+    out when you end your session.
+
+    It is up to you if you want this website to store data in your browser. If you do not want any more
+    that this website stores data in your browser you can delete your cookies or click on the button below.
+  </pre>
+
+    <b>Status:</b><br />
+    <span *ngIf="storageService.isLocalStorageAccepted(); else localStorageDenied">
+        Local storage is currently enabled<br />
+        <button mat-raised-button color="primary" class="reset-storage-button" (click)="storageService.setLocalStorageAccepted(false)">Delete storage</button>
+    </span>
+    <ng-template #localStorageDenied>
+        Local storage is currently disabled
+    </ng-template>
+</div>
+
+<!-- Server log files -->
+<br />
+<h2>Server log files</h2>
+<div class="statement-content">
+    <pre>
+    The provider of this website collects and saves information transmitted by your browser in the server log for suspicious accesses.
+    This includes
+    </pre>
+    <ul>
+        <li>Browser type and version</li>
+        <li>Information about the os</li>
+        <li>Referrer url</li>
+        <li>Hostname of the used computer</li>
+        <li>Timestamp of access</li>
+    </ul>
+    <pre>
+    This data cannot be associated to single persons. Plus, this data is never combined with other data sources.
+    We reserve the right to inspect this data at a later date if we become aware of concrete indications of
+    illegal use.
+  </pre>
+</div>

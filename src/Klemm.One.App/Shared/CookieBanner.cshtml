@@ -1,0 +1,43 @@
+﻿@using System.Diagnostics
+@using Klemm.One.App.Helper.Interops
+
+<div class='storage-notification-container @(IsFaded ? "container-hide" : "")' hidden="@IsHidden">
+    <div class="storage-notification-layer">
+        <div>
+            <span class="storage-message">
+                To ensure the best possible experience this site saves data in your browser. What do you think about it?
+            </span>
+
+            <span class="storage-message-button">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" color="primary" onclick="@AcceptStorage">I'm fine</button>
+            </span>
+            <span class="storage-message-button">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" color="primary" onclick="@DenyStorage">Better not</button>
+            </span>
+        </div>
+    </div>
+</div>
+
+@functions {
+    public bool IsFaded { get; private set; }
+    public bool IsHidden { get; private set; } = true;
+
+    const string StorageAcceptKey = "storageAccepted";
+
+    protected override async Task OnInitAsync()
+    {
+        var storageContent = await LocalStorage.GetItem(Properties.Resources.StorageKey + StorageAcceptKey);
+        IsHidden = !string.IsNullOrEmpty(storageContent);
+    }
+
+    void AcceptStorage()
+    {
+        LocalStorage.SetItem(Properties.Resources.StorageKey + StorageAcceptKey, true.ToString());
+        IsFaded = true;
+    }
+
+    void DenyStorage()
+    {
+        IsFaded = true;
+    }
+}

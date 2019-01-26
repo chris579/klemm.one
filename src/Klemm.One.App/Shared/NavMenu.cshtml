@@ -1,0 +1,31 @@
+﻿<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--no-drawer-button">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <!-- <div aria-expanded="false" role="button" tabindex="0" class="mdl-layout__drawer-button"><i class="material-icons"></i></div>
+            -->
+            <!-- Title -->
+            <span class="mdl-layout-title">
+
+                <NavLink href="/" style="text-decoration: none; color: white;">
+                    Christian Klemm
+                </NavLink>
+            </span>
+            <!-- Add spacer, to align navigation to the right -->
+            <div class="mdl-layout-spacer"></div>
+            <!-- Navigation. We hide it in small screens. -->
+            <nav class="mdl-navigation mdl-layout--large-screen-only" style="margin-right: 3rem;">
+                <NavLink href="privacyStatement" style="text-decoration: none; color: white;">
+                    Privacy statement
+                </NavLink>
+            </nav>
+        </div>
+    </header>
+    <main class="mdl-layout__content">
+        <div class="page-content">@ChildContent</div>
+    </main>
+</div>
+
+@functions {
+    [Parameter]
+    private RenderFragment ChildContent { get; set; }
+}
