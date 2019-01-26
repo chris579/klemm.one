@@ -12,7 +12,7 @@ namespace Klemm.One.App.Services
 
         public bool IsEnabled { get; set; }
 
-        public event EventHandler StateChanged;
+        public event EventHandler<bool> StateChanged;
 
         public async Task Init()
         {
@@ -25,7 +25,7 @@ namespace Klemm.One.App.Services
             await LocalStorage.SetItem(Properties.Resources.StorageKey + StorageAcceptKey, true.ToString());
 
             IsEnabled = true;
-            StateChanged?.Invoke(this, EventArgs.Empty);
+            StateChanged?.Invoke(this, true);
         }
 
         public async Task DenyStorage()
@@ -33,7 +33,7 @@ namespace Klemm.One.App.Services
             await LocalStorage.RemoveItem(Properties.Resources.StorageKey + StorageAcceptKey);
 
             IsEnabled = false;
-            StateChanged?.Invoke(this, EventArgs.Empty);
+            StateChanged?.Invoke(this, false);
         }
     }
 }

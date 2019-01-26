@@ -72,7 +72,7 @@
         StorageService.StateChanged += StorageServiceOnStateChanged;
     }
 
-    private void StorageServiceOnStateChanged(object sender, EventArgs args)
+    private void StorageServiceOnStateChanged(object sender, bool isEnabled)
     {
         StateHasChanged();
     }

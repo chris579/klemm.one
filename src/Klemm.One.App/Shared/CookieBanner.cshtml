@@ -2,7 +2,7 @@
 @inject StorageService StorageService
 @implements IDisposable
 
-<div class='storage-notification-container @(IsFaded ? "container-hide" : "")' hidden="@StorageService.IsEnabled">
+<div class='storage-notification-container @(IsFaded ? "container-hide" : "")' hidden="@IsHidden">
     <div class="storage-notification-layer">
         <div>
             <span class="storage-message">
@@ -20,18 +20,23 @@
 </div>
 
 @functions {
+
     public bool IsFaded { get; private set; }
+    public bool IsHidden { get; private set; } = true;
 
     protected override async Task OnInitAsync()
     {
         await StorageService.Init();
+        IsHidden = StorageService.IsEnabled;
 
         StorageService.StateChanged += StorageServiceOnStateChanged;
     }
 
-    private void StorageServiceOnStateChanged(object sender, EventArgs args)
+    private void StorageServiceOnStateChanged(object sender, bool isEnabled)
     {
-        IsFaded = false;
+        IsHidden = false;
+        IsFaded = isEnabled;
+
         StateHasChanged();
     }
 
