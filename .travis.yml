@@ -21,6 +21,6 @@ script:
 
 deploy:
   provider: script
-  script: docker push $TRAVIS_REPO_SLUG:$VERSION | docker push $TRAVIS_REPO_SLUG:latest
+  script: docker push $TRAVIS_REPO_SLUG:$VERSION && docker push $TRAVIS_REPO_SLUG:latest
   on:
     branch: master
