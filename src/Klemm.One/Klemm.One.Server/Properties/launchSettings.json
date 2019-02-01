@@ -17,17 +17,11 @@
     },
     "Klemm.One.Server": {
       "commandName": "Project",
+      "launchBrowser": false,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://0.0.0.0:5000/"
-    },
-    "Watch": {
-      "executablePath": "dotnet.exe",
-      "commandLineArgs": "watch --project ..\\..\\..\\Klemm.One.Server.csproj run -c Debug",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      "applicationUrl": "http://localhost:5000/"
     }
   }
 }

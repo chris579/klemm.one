@@ -24,7 +24,7 @@ namespace Klemm.One.App.Model
                 {
                     Name =  "Angular 6",
                     SkillLevel =  SkillLevel.Proficient,
-                    Description = "Starting with web development I discovered Angular 2 and loved it. With the help of it I created several responsive websites. And this website too.",
+                    Description = "Starting with web development I discovered Angular 2 and loved it. With the help of it I created several responsive websites.",
                     Image = "angular.svg"
                 },
                 new Skill

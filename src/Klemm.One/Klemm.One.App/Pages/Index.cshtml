@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using Klemm.One.App.Helper.Interops
 @using Klemm.One.App.Model
+@using Klemm.One.App
 
 <p class="introduction-text">Hi, my Name ist Christian Klemm. I'm a German developer.</p>
 
@@ -63,12 +64,12 @@
 
     void OpenGithub()
     {
-        Window.Open(Properties.Resources.GithubProfileUrl, "_self");
+        Window.Open(Klemm.One.App.Properties.Resources.GithubProfileUrl, "_self");
     }
 
     void SendMail()
     {
-        Window.Open("mailto:" + Properties.Resources.ContactMailAdress, "_self");
+        Window.Open("mailto:" + Klemm.One.App.Properties.Resources.ContactMailAdress, "_self");
     }
 
 }
