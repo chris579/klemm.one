@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Klemm.One.App.Helper.Interops;
+using Klemm.One.App.Helper.Interop;
 
 namespace Klemm.One.App.Services
 {
@@ -22,7 +22,15 @@ namespace Klemm.One.App.Services
 
         public async Task AcceptStorage()
         {
-            await LocalStorage.SetItem(Properties.Resources.StorageKey + StorageAcceptKey, true.ToString());
+            await SessionStorage.SetItem(Properties.Resources.StorageKey + StorageAcceptKey, true.ToString());
+
+            var items = await SessionStorage.GetAllItems();
+            foreach (var item in items)
+            {
+                await LocalStorage.SetItem(item.Key, item.Value);
+            }
+
+            await SessionStorage.Clear();
 
             IsEnabled = true;
             StateChanged?.Invoke(this, true);
@@ -32,8 +40,30 @@ namespace Klemm.One.App.Services
         {
             await LocalStorage.RemoveItem(Properties.Resources.StorageKey + StorageAcceptKey);
 
+            var items = await LocalStorage.GetAllItems();
+            foreach (var item in items)
+            {
+                await SessionStorage.SetItem(item.Key, item.Value);
+            }
+
+            await LocalStorage.Clear();
+
             IsEnabled = false;
             StateChanged?.Invoke(this, false);
+        }
+
+        public Task SetItem(string key, string value)
+        {
+            return IsEnabled
+                ? LocalStorage.SetItem(Properties.Resources.StorageKey + key, value)
+                : SessionStorage.SetItem(Properties.Resources.StorageKey + key, value);
+        }
+
+        public Task<string> GetItem(string key)
+        {
+            return IsEnabled
+                ? LocalStorage.GetItem(Properties.Resources.StorageKey + key)
+                : SessionStorage.GetItem(Properties.Resources.StorageKey + key);
         }
     }
 }
